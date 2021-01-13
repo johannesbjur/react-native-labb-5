@@ -1,21 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { UserList } from './components/userList'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+        <Text style={styles.title}>Candidates</Text>
+        <UserList />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        alignItems: 'center',
+        marginTop: 50
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        padding: 10
+    }
 });

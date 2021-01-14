@@ -1,13 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { UserList } from './components/userList'
+import { UserInfo } from './components/userInfo'
+
 
 export default function App() {
+
+    const [selectedItem, setSelectedItem] = useState({})
+
   return (
     <View style={styles.container}>
         <Text style={styles.title}>Candidates</Text>
-        <UserList />
+        <UserList
+            setSelectedItem={setSelectedItem} 
+        />
+        <UserInfo 
+            selectedItem={selectedItem}
+        />
     </View>
   );
 }

@@ -1,17 +1,14 @@
 import React, { Component ,useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
 
 
 export class UserList extends Component {
-
-    // state = {
-    //     users: []
-    // }
 
     constructor(props) {
         super(props)
         this.state = {
             users: [],
+            selectItemIndex: -1 
         }
     }
 
@@ -30,37 +27,62 @@ export class UserList extends Component {
         })
     }
 
-    handleItemPress(item) {
-        console.log(item)
-    }
-
     render() {
-        const { users } = this.state
+        const { users, selectItemIndex } = this.state
+        const { setSelectedItem } = this.props
 
         return(
             <View style={styles.container}>
                 <FlatList 
                     data={users}
-                    renderItem={ ({item}) => (
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={ ({item, index}) => (
                         <Text 
-                            style={{...styles.listItem }}
-                            onPress={() => this.handleItemPress(item)} 
-                        >{item.name}</Text>
+                            style={{...styles.listItem, backgroundColor: selectItemIndex === index ? 'yellow' : 'white' }}
+                            onPress={() => {
+                                setSelectedItem(item)
+                                this.setState({
+                                    selectItemIndex: index 
+                                })
+                            }}
+                            >{item.name}</Text>
                 )}
                 />
+                <View style={styles.navBtns}>
+                    <Button 
+                        title="Prev"
+                        onPress={() => {
+                            // this.setState({
+                            //     selectItemIndex: selectItemIndex - 1
+                            // })
+                            // setSelectedItem(users[selectItemIndex])
+                        }}
+                    />
+                    <Text>{ selectItemIndex + 1 }</Text>
+                    <Button 
+                        title="Next"
+                        onPress={() => {
+                            // this.setState({
+                            //     selectItemIndex: selectItemIndex + 1
+                            // })
+                            // setSelectedItem(users[selectItemIndex])
+                        }}
+                    />
+                </View>
             </View>
         )
-
     }
-
 }
 
 const styles = StyleSheet.create({
     container: {
         width: '60%',
-        height: '60%',
+        height: '50%',
     },
     listItem: {
         padding: 10
+    }, 
+    navBtns: {
+
     }
 })

@@ -1,5 +1,5 @@
-import React, { Component ,useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 
 export class UserInfo extends Component {
@@ -13,9 +13,8 @@ export class UserInfo extends Component {
     }
 
     componentDidUpdate() {
-        if( this.state.userData.id == this.props.selectedItem.id) return
+        if( this.props.selectedItem == undefined || this.state.userData.id == this.props.selectedItem.id ) return
 
-        console.log("update", this.props.selectedItem.name)
         fetch('https://jsonplaceholder.typicode.com/users/' + this.props.selectedItem.id)
         .then(response => response.json())
         .then(json => {
